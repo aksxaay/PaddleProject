@@ -1,0 +1,23 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "PaddleOCR/tools/infer_kie_token_ser.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "args": [
+        "-c",
+        "PaddleOCR/configs/kie/vi_layoutxlm/ser_vi_layoutxlm_xfund_zh.yml",
+        "-o",
+        " Architecture.Backbone.checkpoints=.PaddleOCR/pretrained_model/ser_vi_layoutxlm_xfund_pretrained/best_accuracy",
+        "Global.infer_img=.PaddleOCR/ppstructure/docs/kie/input/zh_val_42.jpg"
+      ]
+    }
+  ]
+}
