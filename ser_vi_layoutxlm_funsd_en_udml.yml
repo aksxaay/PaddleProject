@@ -99,7 +99,7 @@ PostProcess:
   name: DistillationSerPostProcess
   model_name: ["Student", "Teacher"]
   key: backbone_out
-  class_path: &class_path train_data/FUNSD/class_list_xfun.txt
+  class_path: &class_path train_data/FUNSD/class_list.txt
 
 Metric:
   name: DistillationMetric
@@ -143,7 +143,7 @@ Train:
     shuffle: True
     drop_last: False
     batch_size_per_card: 4
-    num_workers: 1
+    num_workers: 4
 
 Eval:
   dataset:
