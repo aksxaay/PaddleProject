@@ -158,3 +158,184 @@ python3 ./tools/infer_kie_token_ser_re.py \
   -c_ser configs/kie/vi_layoutxlm/ser_vi_layoutxlm_xfund_zh.yml \
   -o_ser Architecture.Backbone.checkpoints=./pretrained_model/ser_vi_layoutxlm_xfund_pretrained/best_accuracy
 ```
+
+
+### Question
+
+1. Do you want us to improve the current token method which uses [layoutLM](https://www.microsoft.com/en-us/research/publication/layoutlm-pre-training-of-text-and-layout-for-document-image-understanding/#:~:text=LayoutLM%20is%20a%20simple%20but,SOTA%20results%20on%20multiple%20datasets.)
+- grid based
+- token based
+- GCN based
+- e2e based methods
+
+
+or go a different route?
+
+what was the so called problem mentioned?
+
+should I look at other libraries
+
+or further understand the paddleOCR?
+
+why didn't they show us this before?
+
+didn't they run into version complications?
+paddlepaddle installation issues?
+
+maybe a layout LM replacement?
+LayoutLM can only be trained on a single language
+[LiLT](https://www.youtube.com/watch?v=EVONngnrJbE) is language independent.
+[LayoutLM](https://www.youtube.com/watch?v=aGcLSH9TTLU&list=PLcP8bHQl_w-F9RZeczGmJc16XoRHSiGQz&index=5) is the other model that we can use
+[impira DocQuery](https://www.youtube.com/watch?v=sDPNWg3RYyY&list=PLcP8bHQl_w-F9RZeczGmJc16XoRHSiGQz&index=7) is the third model, they have a web app which is docQA, this however only seems to have querying
+
+gonna try out LayoutLM separately
+
+
+found a medium article
+[Fine-Tuning Transformer Model for Invoice Recognition](https://towardsdatascience.com/fine-tuning-transformer-model-for-invoice-recognition-1e55869336d4)
+
+transformers -?
+[LayoutLMv3 training with CORD (receipts dataset)](https://www.youtube.com/watch?v=bsT_1uDRQVo)
+
+I was thinking lemme run it first for CORD save the results that I'm satisfied with and then test the other things.
+also apparently we can setup huggingface to save our pretrained / trained models, which sounds really convenient.
+
+
+found something based on these keywords
+[fined tuned layoutLMv3 on FUNSD](https://www.google.com/search?q=fine+tune+layoutlmv3+on+FUNSD&oq=fine+tune+layoutlmv3+on+FUNSD&aqs=chrome..69i57.10656j0j1&sourceid=chrome&ie=UTF-8)
+
+session crashed because I used up all the ram bro what.
+
+so it doesn't depend on the size of your image, but the fact that all those images are being loaded into the damn ram.
+
+so now trying it with the shuffle dataset
+
+it loaded the GPU Ram with upto 11.3/15.0 GB gigs of them holy shit which means it can handle just a little more
+
+damn I didn't know it needed all this for it work wth.
+
+
+
+## 2nd March
+
+After having done LayoutLMv2 and LayoutLMv3 I have way more context into how the the process generally flows, and I'm starting to have a lot of context into how these things are structured.
+
+PPstructure basically claims to have better accuracy than the other methods, considering that I train them really well.
+
+Anyways, on 
+
+[KIE Doc](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/doc/doc_en/kie_en.md#Data-Preparation)
+
+it tells us we can use these datasets XFUND or FUNSD, and use their scripts to match our own needs.
+
+So I'm going to try and do that.
+
+
+so `kie/tools` is this repo which basically has helper functions that we need for this project.
+
+such a function is `trans_funsd_label.py` which converts the `FUNSD` dataset into what LayouXLM can understand.
+
+had to run the `trans_funsd_label.py` and it said `OK` bruh what typa shit is this.
+
+
+> successfully prepared the FUNSD dataset I believe.
+
+so basically you specify this `PaddleOCR/configs/kie/vi_layoutxlm/ser_vi_layoutxlm_xfund_zh.yml` file which says all the things that have to be done
+
+it also makes sense now that I've used LayoutLM
+
+and this is the [PP-StructureV2 Paper](https://arxiv.org/abs/2210.05391) that talks about proposing `VI-LayoutXLM` which is the highlight.
+
+
+new terminology alert - SDGMR
+
+Spatial Dual-Modality Graph Reasoning for Key Information Information Extraction
+
+
+finally found this whole document of [environment_en.md](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/doc/doc_en/environment_en.md#1.3)
+
+bruh this talks about how to prepare your environment.
+- anaconda
+- docker
+
+I need to test out docker implementation of this.
+
+
+for more KIE models training and configuration files, you can go into configs/kie/ or refer to [Frontier KIE algorithms](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/doc/doc_en/algorithm_overview_en.md).
+
+Supported
+- VI-LayoutXLM
+- LayoutLM
+- LayoutLMv2
+- LayouXLM
+- SDMGR
+
+they say on XFUND_zh dataset the algorithm is also mentioned as follows
+
+[VI-LayoutXLM algorithm_kie_vi_layoutxlm_en](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/doc/doc_en/algorithm_kie_vi_layoutxlm_en.md)
+
+after training I need to export it to inference model.
+I don't know what the right approach is after preparing the dataset for PPstructurev2
+
+there's nothing mentioned actually.
+
+I'm going to simplify this problem.
+
+something I noticed is that there's a slight difference in how this is being done.
+
+The prompt of STGI and the prompt I got from PaddleOCR repo's main page are almost the same. so that's that.
+
+I've been thinking of using Obsidian to understand this thing's document structure once and for all.
+
+> U-DML knowledge distillation algorithm and TB-YX sorting algorithm
+
+
+I was thinking about this obsidian hack which can help me easily navigate this hard ass structure
+
+```sh
+^(.(?!(jpe*g|gif|png|md|sh|txt|yml|pdf|svg)))*$
+```
+
+use this on the `fsearch` app and I hit delete and everything works just fine.
+this finds all `.*md` files.
+
+this removed everything, but there's still blank folders left behind I would think.
+
+NVM shit failed, 
+
+```sh
+find . -empty -type d -delete
+```
+
+this removed all directories because shit was empty bruh.
+
+iregex was the answer don't ask me how.
+
+
+running both those commands the file sizes are now manageable
+```
+189 directories, 675 files
+```
+
+
+
+> change the config file (yml)
+>
+
+transferred `class_list_xfun.txt` to `train_data/FUNSD`
+
+moved the `train.json` and `test.json` into `training_data` and `testing_data` folders respectively for FUNSD
+
+okay prepared the `ser_vi_layoutxlm_funsd_en_udml.yml` file
+
+
+it's saving a model here too
+`/home/axsae/.paddlenlp/models/vi-layoutxlm-base-uncased/vi-layoutxlm-base-uncased`
+
+bruh
+
+got a long ass exception
+`Exception: train_data/FUNSD/training_data/image/0000990274.png does not exist!`
+
+maxxed out ram and swap and just Killed itself
+reducing `num_workers` to 2
