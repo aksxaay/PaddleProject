@@ -339,3 +339,15 @@ got a long ass exception
 
 maxxed out ram and swap and just Killed itself
 reducing `num_workers` to 2
+
+
+it says if no decrease the batch size of your model lol
+
+`batch_size_per_card` = 2, and that somehow almost maxes out the GPU but just enough
+google colab is fr redlining.
+
+what is exactly `num_workers` and `batch_size`
+
+some observational stats
+- 1.13it/s
+- precision 0.03 hmea 0.016
