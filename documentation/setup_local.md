@@ -351,3 +351,14 @@ what is exactly `num_workers` and `batch_size`
 some observational stats
 - 1.13it/s
 - precision 0.03 hmea 0.016
+
+
+this approach did not work out
+
+
+### 8th March
+[docquery](https://github.com/impira/docquery) - document query engine.
+this also quite does'nt work rn.
+
+also tested out the tilt method
+but their results are relatively poor.
