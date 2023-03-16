@@ -362,3 +362,20 @@ this also quite does'nt work rn.
 
 also tested out the tilt method
 but their results are relatively poor.
+
+
+![](pretrained-structure.png)
+![](output-train-structure.png)
+
+
+
+I'm thinking for now I'll focus on reading the white-paper to understand the inner processes, and things.
+
+Soon, test around docker and be able to train on my own hardware.
+
+
+found yet another implementation ez time to understand
+
+[fine-tuning-keras](https://www.philschmid.de/fine-tuning-layoutlm-keras)
+
+[add image embeddings to LayoutLM](https://colab.research.google.com/github/NielsRogge/Transformers-Tutorials/blob/master/LayoutLM/Add_image_embeddings_to_LayoutLM.ipynb) - using torchvision?
